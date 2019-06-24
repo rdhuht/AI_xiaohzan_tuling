@@ -10,19 +10,12 @@ from mcpi import minecraft
 import sys
 
 APIkey = '85fa9349884747f5b72913a7c60bbcab'
-opList = ["JeremyTsui", "momo", "ningliang"]
+opList = ["Hy", "IvyGao", "JeremyTsui", "momo", "ningliang"]
 
 address = '47.105.46.254'
 # address = '101.200.42.193'
+# address = 'localhost'
 mc = minecraft.Minecraft.create(address=address)
-l
-for i in opList:
-    try:
-        myId = mc.getPlayerEntityId(i)
-        opList.append(myId)
-        print(i, "online")
-    except:
-        print(i, "offline")
 
 
 def get_response(msg):
@@ -52,22 +45,22 @@ def get_response(msg):
                 "userId": "OnlyUseAlphabet"
             }
     }
-    # try:
-    req = json.dumps(data).encode('utf-8')  # ANSI_X3.4-1968
-    http_post = urllib.request.Request(api_url, data=req, headers={'content-type': 'application/json'})
-    response = urllib.request.urlopen(http_post)
-    response_str = response.read().decode('utf-8')
-    response_dic = json.loads(response_str)
-    # print(response_dic)
-    results_text = response_dic['results'][0]['values']['text']
-    return results_text
-    # except:
-    #     return None
+    try:
+        req = json.dumps(data).encode('utf-8')
+        http_post = urllib.request.Request(api_url, data=req, headers={'content-type': 'application/json'})
+        response = urllib.request.urlopen(http_post)
+        response_str = response.read().decode('utf-8')
+        response_dic = json.loads(response_str)
+        results_text = response_dic['results'][0]['values']['text']
+        return results_text
+    except:
+        return None
 
 
 def tuling_reply_text():
     for chatpost in mc.events.pollChatPosts():
-        if chatpost.entityId in opList:
+        playername = mc.entity.getName(chatpost.entityId)
+        if playername in opList:
             ms = chatpost.message.lower()
             pName = mc.entity.getName(chatpost.entityId)
             pMsg = chatpost.message
@@ -83,7 +76,6 @@ def tuling_reply_text():
                 r = get_response(msg)
                 # x, y, z = mc.entity.getPos(chatpost.entityId)
                 # mc.setBlock(x + 2, y + 1, z, 20)
-                print('RESPONSE:', r)
                 # for i in re.split(",|，", r):
                 #     showMsg.append(i)
                 # print(showMsg)
