@@ -10,7 +10,7 @@ from mcpi import minecraft
 import sys
 
 APIkey = '85fa9349884747f5b72913a7c60bbcab'
-opList = ["Hy", "IvyGao", "JeremyTsui", "momo", "ningliang"]
+opList = ["Hy", "IvyGao", "JeremyTsui", "momo", "Ningliang"]
 
 address = '47.105.46.254'
 # address = '101.200.42.193'
@@ -59,6 +59,8 @@ def get_response(msg):
 
 def tuling_reply_text():
     for chatpost in mc.events.pollChatPosts():
+        print(chatpost)
+        print(type(chatpost.message))
         playername = mc.entity.getName(chatpost.entityId)
         if playername in opList:
             ms = chatpost.message.lower()
@@ -69,20 +71,14 @@ def tuling_reply_text():
             content = ms.split(" ")[1:]
             msg = ''
             print(content)
-            # showMsg = []
             for i in content:
                 msg += " " + i
             if name == "xiaozhan":
                 r = get_response(msg)
-                # x, y, z = mc.entity.getPos(chatpost.entityId)
-                # mc.setBlock(x + 2, y + 1, z, 20)
-                # for i in re.split(",|，", r):
-                #     showMsg.append(i)
-                # print(showMsg)
-                mc.postToChat('ministack AI: ' + str(r))
-            # mc.setSign(x + 1, y + 1, z, 68, 4, showMsg)
+                print(type(r))
+                mc.postToChat('ministack AI: ' + r)
 
-
+# 你好
 while True:
     time.sleep(0.5)
     tuling_reply_text()
