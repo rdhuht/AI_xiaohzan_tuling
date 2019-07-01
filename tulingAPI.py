@@ -7,7 +7,6 @@ import urllib.request
 import json
 import time
 from mcpi import minecraft
-import sys
 
 APIkey = '85fa9349884747f5b72913a7c60bbcab'
 opList = ["Hy", "IvyGao", "JeremyTsui", "momo", "Ningliang"]
