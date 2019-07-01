@@ -1,21 +1,13 @@
+# coding:utf-8
 # Author: Jeremy Tsui
-# Date  : 2019-06-23 10:29
-# File  : 24_tulingAPI.py
+# Date  : 2019-06-30 20:50
+# File  : tuling_demo.py
 # IDE   : PyCharm
-
 import urllib.request
 import json
 import time
-from mcpi import minecraft
-import sys
 
 APIkey = '85fa9349884747f5b72913a7c60bbcab'
-opList = ["Hy", "IvyGao", "JeremyTsui", "momo", "Ningliang"]
-
-# address = '47.105.46.254'
-address = '101.200.42.193'
-# address = 'localhost'
-mc = minecraft.Minecraft.create(address=address)
 
 
 def get_response(msg):
@@ -57,29 +49,15 @@ def get_response(msg):
         return None
 
 
-def tuling_reply_text():
-    for chatpost in mc.events.pollChatPosts():
-        print(chatpost)
-        print(type(chatpost.message))
-        playername = mc.entity.getName(chatpost.entityId)
-        if playername in opList:
-            ms = chatpost.message.lower()
-            pName = mc.entity.getName(chatpost.entityId)
-            pMsg = chatpost.message
-            print("{} said [{}] to AI.".format(pName, pMsg))
-            name = ms.split(" ")[0]
-            content = ms.split(" ")[1:]
-            msg = ''
-            print(content)
-            for i in content:
-                msg += " " + i
-            if name == "xiaozhan":
-                r = get_response(msg)
-                print(type(r))
-                mc.postToChat('ministack AI: ' + r)
+def tuling_reply_text(message):
+    print("You said [{}] to AI.".format(message))
+    r = get_response(message)
+    return r
 
 
 # 你好
 while True:
     time.sleep(0.5)
-    tuling_reply_text()
+    msg = input("直男/女：")
+    r = tuling_reply_text(msg)
+    print("AI：", r)
