@@ -7,7 +7,7 @@ import urllib.request
 import json
 import time
 
-APIkey = '85fa9349884747f5b72913a7c60bbcab'
+APIkey = '4a8892827e9440ed80f9f01905c808b2'
 
 
 def get_response(msg):
